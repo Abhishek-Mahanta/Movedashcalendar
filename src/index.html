@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Grid with FullCalendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #calendar {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .fc-event-main-frame {
+            background-color: #4f92c9;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .fc-event-description {
+            font-size: 10px;
+            color: white;
+        }
+        .fc-event-title, .fc-event-time {
+            font-weight: bold;
+        }
+        .fc-event-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="calendar"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.global.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridDay',
+                slotMinTime: '00:00:00',
+                slotMaxTime: '24:00:00',
+                slotDuration: '01:00:00',
+                allDaySlot: false,
+                editable: true,
+                droppable: true, 
+                height: '670px',
+                events: [
+                    {
+                        title: 'Sapienza D',
+                        start: '2024-08-14T09:00:00',
+                        end: '2024-08-14T12:00:00',
+                        description: 'Pack. Hrs:0 | Est. Hrs:2.5<br/> M:2 |T:1, Est.$775 | Est. Ibs:915 | Est. CuFt:21.0<br/> North Andover - Acton',
+                    }
+                    
+                ],
+                
+                eventContent: function(arg) {
+                    return {
+                        html: `<div class="fc-event-main-frame">
+                                <div class="fc-event-title">${arg.event.title}</div>
+                                <div class="fc-event-time">${arg.timeText}</div>
+                                <div class="fc-event-description">${arg.event.extendedProps.description}</div>
+                            </div>`
+                    };
+                },
+                eventDidMount: function(info) {
+
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
